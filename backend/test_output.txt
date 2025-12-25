@@ -1,0 +1,61 @@
+﻿python : 
+C:\Users\HP\Desktop\Cortex 
+LMH- Google GDG Techsprint - Co
+py\Cortex-LMH-main\backend\test
+_gemini_models.py:6: 
+FutureWarning: 
+At line:1 char:1
++ python test_gemini_models.py 
+2>&1 | Out-File -FilePath 
+test_output.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo          :  
+   NotSpecified: (C:\Users\HP  
+  \Des...FutureWarning: :Str   
+ ing) [], RemoteException
+    + FullyQualifiedErrorId :  
+   NativeCommandError
+ 
+
+All support for the 
+`google.generativeai` package 
+has ended. It will no longer 
+be receiving 
+updates or bug fixes. Please 
+switch to the `google.genai` 
+package as soon as possible.
+See README for more details:
+
+https://github.com/google-gemin
+i/deprecated-generative-ai-pyth
+on/blob/main/README.md
+
+  import google.generativeai 
+as genai
+Traceback (most recent call 
+last):
+  File 
+"C:\Users\HP\Desktop\Cortex 
+LMH- Google GDG Techsprint - Co
+py\Cortex-LMH-main\backend\test
+_gemini_models.py", line 17, 
+in <module>
+    print(f"\u2713 API Key 
+configured (length: 
+{len(API_KEY)})")
+  File "C:\Program Files\Window
+sApps\PythonSoftwareFoundation.
+Python.3.11_3.11.2544.0_x64__qb
+z5n2kfra8p0\Lib\encodings\cp125
+2.py", line 19, in encode
+    return codecs.charmap_encod
+e(input,self.errors,encoding_ta
+ble)[0]
+           ^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+UnicodeEncodeError: 'charmap' 
+codec can't encode character 
+'\u2713' in position 0: 
+character maps to <undefined>

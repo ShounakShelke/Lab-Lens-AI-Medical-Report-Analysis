@@ -1,0 +1,197 @@
+[
+    {
+        "id": "e0c6dcbb-5455-4a86-9bf0-f7a304b529f2",
+        "reportId": "e0c6dcbb-5455-4a86-9bf0-f7a304b529f2",
+        "patient": {
+            "name": "Patient",
+            "age": "--",
+            "sex": "--"
+        },
+        "tests": [
+            {
+                "name": "Haemoglobin",
+                "value": "8.0",
+                "unit": "g/dL",
+                "ref_range": "12-14",
+                "status": "Low"
+            },
+            {
+                "name": "RBC Count",
+                "value": "3.32",
+                "unit": "million/cu mm",
+                "ref_range": "3.80-5.80",
+                "status": "Low"
+            },
+            {
+                "name": "WBC Count",
+                "value": "5000",
+                "unit": "/cu mm",
+                "ref_range": "4,000-11,000",
+                "status": "Normal"
+            },
+            {
+                "name": "Neutrophils",
+                "value": "55",
+                "unit": "%",
+                "ref_range": "40-70",
+                "status": "Normal"
+            },
+            {
+                "name": "Lymphocytes",
+                "value": "38",
+                "unit": "%",
+                "ref_range": "20-50",
+                "status": "Normal"
+            },
+            {
+                "name": "PCV",
+                "value": "26.3",
+                "unit": "%",
+                "ref_range": "36-56",
+                "status": "Low"
+            },
+            {
+                "name": "MCV",
+                "value": "79.2",
+                "unit": "fL",
+                "ref_range": "80-100",
+                "status": "Low"
+            },
+            {
+                "name": "MCH",
+                "value": "24.0",
+                "unit": "pg",
+                "ref_range": "27-32",
+                "status": "Low"
+            },
+            {
+                "name": "MCHC",
+                "value": "30.0",
+                "unit": "g/dL",
+                "ref_range": "32-36",
+                "status": "Low"
+            },
+            {
+                "name": "Platelets",
+                "value": "256000",
+                "unit": "/cu mm",
+                "ref_range": "1,50,000-4,00,000",
+                "status": "Normal"
+            },
+            {
+                "name": "HIV I & II",
+                "value": "Non Reactive",
+                "unit": "",
+                "ref_range": "Non Reactive",
+                "status": "Normal"
+            },
+            {
+                "name": "HBsAg Test",
+                "value": "Non Reactive",
+                "unit": "",
+                "ref_range": "Non Reactive",
+                "status": "Normal"
+            },
+            {
+                "name": "Blood Sugar (R)",
+                "value": "117.0",
+                "unit": "mg/dL",
+                "ref_range": "65-110",
+                "status": "Normal"
+            },
+            {
+                "name": "Sr. Creatinine",
+                "value": "0.8",
+                "unit": "mg/dL",
+                "ref_range": "0.6-1.4",
+                "status": "Normal"
+            }
+        ],
+        "riskSummary": {
+            "overallRisk": "Moderate Risk",
+            "bannerMessage": "MULTIPLE ABNORMALITIES DETECTED",
+            "severityBannerColor": "yellow",
+            "recommendedSpecialist": "Internal Medicine",
+            "abnormalCount": 6
+        },
+        "recommendedSpecialist": "Hematologist",
+        "summary": "The hematology report shows significant anemia with low hemoglobin (8.0 g/dL), low red blood cell count (3.32 million/cu mm), and low packed cell volume (26.3%). These findings may indicate iron deficiency anemia. Immediate medical attention is recommended.",
+        "lifestyle": [
+            "Increase intake of iron-rich foods like spinach, lentils, and red meat.",
+            "Consider vitamin C rich foods to enhance iron absorption.",
+            "Avoid tea and coffee around meal times.",
+            "Schedule follow-up blood tests.",
+            "Consult a hematologist for iron supplementation."
+        ],
+        "disclaimer": "This is not a medical diagnosis. Consult a doctor.",
+        "createdAt": "2025-12-26T03:14:09.060429",
+        "imageUrl": "/uploads/0d78c324-9a1b-46b6-8453-a7219bcf2e65_ABS Report .png",
+        "filename": "ABS Report .png"
+    },
+    {
+        "id": "88e87439-09d3-42e7-ad9b-ee8602ec6acc",
+        "reportId": "88e87439-09d3-42e7-ad9b-ee8602ec6acc",
+        "patient": {
+            "name": "Patient",
+            "age": "--",
+            "sex": "--"
+        },
+        "tests": [
+            {
+                "name": "Serum Creatinine",
+                "value": "1.8",
+                "unit": "mg/dL",
+                "ref_range": "0.6-1.2",
+                "status": "High"
+            },
+            {
+                "name": "Blood Urea Nitrogen",
+                "value": "55",
+                "unit": "mg/dL",
+                "ref_range": "7-20",
+                "status": "High"
+            },
+            {
+                "name": "eGFR",
+                "value": "52",
+                "unit": "mL/min",
+                "ref_range": ">90",
+                "status": "Low"
+            },
+            {
+                "name": "Uric Acid",
+                "value": "8.2",
+                "unit": "mg/dL",
+                "ref_range": "2.4-7.0",
+                "status": "High"
+            },
+            {
+                "name": "Potassium",
+                "value": "5.2",
+                "unit": "mEq/L",
+                "ref_range": "3.5-5.0",
+                "status": "High"
+            }
+        ],
+        "riskSummary": {
+            "overallRisk": "High Risk",
+            "bannerMessage": "CRITICAL MARKERS DETECTED",
+            "severityBannerColor": "red",
+            "recommendedSpecialist": "Specialist Consultation Required",
+            "abnormalCount": 5
+        },
+        "recommendedSpecialist": "Nephrologist",
+        "summary": "Kidney function tests indicate moderately reduced kidney function (Stage 3 CKD) with elevated creatinine and reduced eGFR. With proper management, progression can often be slowed. Nephrology consultation is important.",
+        "lifestyle": [
+            "Limit sodium/salt intake.",
+            "Moderate protein consumption.",
+            "Stay well hydrated.",
+            "Avoid NSAIDs and nephrotoxic drugs.",
+            "Monitor blood pressure regularly."
+        ],
+        "disclaimer": "This is not a medical diagnosis. Consult a doctor.",
+        "createdAt": "2025-12-26T03:14:19.271703",
+        "imageUrl": "/uploads/a8901455-170c-4780-b2f8-448c39d6c2d3_reports-4.pdf",
+        "filename": "reports-4.pdf"
+    }
+]

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="102.902" height="134.879" viewBox="0 0 102.902 134.879">
+  <g>
+    <path d="M100.9,38.067V110.2a22.681,22.681,0,0,1-22.679,22.683H24.682A22.682,22.682,0,0,1,2,110.2V38.067A22.681,22.681,0,0,1,24.68,15.384h5.083v5.474a7,7,0,0,0,6.989,7.009H67.665a7,7,0,0,0,7.009-6.989V15.384H78.22A22.68,22.68,0,0,1,100.9,38.064Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path d="M91.073,38.067V110.2A12.862,12.862,0,0,1,78.22,123.05H24.682A12.867,12.867,0,0,1,11.829,110.2V38.067A12.867,12.867,0,0,1,24.682,25.213h6.593a6.992,6.992,0,0,0,5.489,2.654h30.9a7.006,7.006,0,0,0,5.5-2.654H78.22A12.862,12.862,0,0,1,91.073,38.067Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path d="M74.674,14.749v6.109a7,7,0,0,1-6.989,7.009H36.764a7,7,0,0,1-7-7V14.749a7,7,0,0,1,7-7h8.2a7.458,7.458,0,0,1,14.517,0h8.188A7.007,7.007,0,0,1,74.674,14.749Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <polygon points="67.812 64.35 58.312 64.35 58.312 54.85 44.59 54.85 44.59 64.35 35.091 64.35 35.091 78.071 44.59 78.071 44.59 87.571 58.312 87.571 58.312 78.071 67.812 78.071 67.812 64.35" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <line x1="29.992" y1="106.048" x2="72.91" y2="106.048" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  </g>
+</svg>

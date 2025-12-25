@@ -1,0 +1,26 @@
+[
+    {
+        "id": "demo-user-123",
+        "email": "user@lablens.demo",
+        "name": "Demo User",
+        "role": "user",
+        "avatar": "https://github.com/shadcn.png",
+        "auth_type": "google"
+    },
+    {
+        "id": "cb33f74f-e9f7-49ba-8464-d588e7353bb1",
+        "email": "visitor@lablens.demo",
+        "name": "Visitor User",
+        "auth_type": "google",
+        "avatar": "https://api.dicebear.com/7.x/initials/svg?seed=Visitor User",
+        "role": "user"
+    },
+    {
+        "id": "9a21a04d-b3d9-4821-86eb-e85c17b0c85c",
+        "email": "admin@lablens.demo",
+        "name": "Dr. Admin",
+        "auth_type": "google",
+        "avatar": "https://api.dicebear.com/7.x/initials/svg?seed=Dr. Admin",
+        "role": "medperson"
+    }
+]
