@@ -1,4 +1,4 @@
-# 🏥 Lab-Lens - Intelligent Lab Report Analyzer
+# Lab-Lens - Intelligent Lab Report Analyzer
 
 AI-powered medical lab report analyzer that provides easy-to-understand insights from your blood tests and medical reports.
 
@@ -42,4 +42,5 @@ Cortex-LMH-main/
 
 
 ### Built with Love by Team Cortex LMH 🧡
+
 ## Team Cortex LMH - Shounak Shelke | Shravani Parte | Sahil Kesarkar
