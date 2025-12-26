@@ -109,14 +109,6 @@ REPORT TEXT:
 
 JSON Response:
 """
-
-If the text does not look like a medical lab report or is completely unreadable, return: {{"valid_data": false}}
-
-REPORT TEXT:
-{text_content}
-
-JSON Response:
-"""
             
             response = text_model.generate_content(prompt)
             response_text = response.text

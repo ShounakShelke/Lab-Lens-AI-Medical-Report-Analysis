@@ -496,13 +496,13 @@ Consult your doctor for personalized medical advice."""
         reply = """Blood sugar (glucose) levels are important indicators of diabetes risk.
 
 Key values:
-- Fasting Blood Sugar: 70-100 mg/dL is normal, 100-125 is prediabetes, 126+ indicates diabetes
-- HbA1c: Under 5.7% is normal, 5.7-6.4% is prediabetes, 6.5%+ indicates diabetes
+- Fasting Blood Sugar: 70-100 mg/dL is within the standard range, 100-125 mg/dL is elevated, and 126+ mg/dL is significantly above the traditional clinical threshold.
+- HbA1c: Under 5.7% is within the optimal range, 5.7%-6.4% suggests increased metabolic risk, and 6.5%+ is significantly above the standard clinical threshold.
 
-Prediabetes can often be reversed with lifestyle changes!
+Changes in metabolic balance can often be addressed with proactive lifestyle adjustments!
 
 Consult your doctor for personalized medical advice."""
-        suggestions = ["What foods spike blood sugar?", "How can I reverse prediabetes?", "What is HbA1c?"]
+        suggestions = ["What foods spike blood sugar?", "How can I optimize metabolism?", "What is HbA1c?"]
     
     elif 'diet' in message_lower or 'food' in message_lower or 'eat' in message_lower:
         reply = """A healthy diet is one of the most powerful tools for improving lab results!
