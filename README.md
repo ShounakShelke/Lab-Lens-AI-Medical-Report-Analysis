@@ -43,5 +43,5 @@ Cortex-LMH-main/
 
 ### Built with Love by Team Cortex LMH 🧡
 
-## Team Cortex LMH - Shounak Shelke | Shravani Parte | Sahil Kesarkar
+
 
