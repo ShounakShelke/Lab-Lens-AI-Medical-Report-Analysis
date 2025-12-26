@@ -56,46 +56,59 @@ def analyze_lab_report(text_content, filename=None):
     if API_WORKING and text_model:
         try:
             prompt = f"""
-You are an expert Medical Laboratory Scientist. Analyze the following extracted text from a medical lab report. 
-Your goal is to provide a structured, accurate, and consistent analysis.
+You are an expert Medical Laboratory Scientist using the Lab-Lens Precision Engine. 
+Analyze the following extracted text from a medical lab report with 100% accuracy.
 
-### INSTRUCTIONS:
-1. Extract all tests, values, units, and reference ranges.
-2. For each test, determine its status: "Normal", "Low", "High", or "Borderline".
-3. Calculate an Overall Risk Level based on the abnormalities:
-   - "Low Risk": All or almost all values are normal.
-   - "Moderate Risk": Multiple minor deviations (Borderline/Mild Low/High) or 1-2 significant deviations.
-   - "High Risk": Critical markers (e.g., Creatinine, Troponin, CRP) are high, or many values are severely abnormal.
-4. Provide a "summary" that is consistent with the Overall Risk. If you mark it as "High Risk", the summary must reflect that.
-5. Identify the "specialist" most relevant to the abnormalities (e.g., Cardiologist for heart, Endocrinologist for sugar/thyroid, Nephrologist for kidney, Hematologist for blood).
-6. Ensure the "urgency" matches the Risk Level: "routine" for Low, "follow-up" for Moderate, "urgent" for High.
+### CRITICAL EXTRACTION RULES:
+1. **ZERO HALLUCINATION**: ONLY extract tests that are explicitly written in the text. DO NOT assume or fabricate values for missing tests (e.g., if MCV is not in the text, do not include it).
+2. **UNIT NORMALIZATION**: Convert values to standard concentrations if necessary.
+   - If WBC is 9,600 /µL, extract as 9.6 (Unit: x10^9/L).
+   - If Platelets are 250,000 /µL, extract as 250 (Unit: x10^9/L).
+   - Always extract numeric values exactly as they appear for Hemoglobin.
+3. **MAPPING**: Capture "Test Name", "Result", "Unit", and "Reference Range" as separate fields.
+4. **STATUS**: Assign "Normal", "Low", "High", or "Borderline" based on the provided reference ranges.
+5. **COMPLETENESS**: Ensure Biochemistry (Sugar, Urea, Creatinine), Serology, and Microscopy are all captured if present.
+
+### ANALYTICAL RULES:
+1. **NO DIAGNOSTIC LABELING**: DO NOT use disease names (e.g., Anemia, Diabetes, Hypothyroidism, Lupus). Instead, describe the result objectively (e.g., "reduced oxygen-carrying markers", "elevated metabolic values").
+2. **Risk Level**: 
+  - "Low": All markers optimal.
+  - "Moderate": Minor deviations or common imbalances.
+  - "High": Critical values detected (e.g., extremely high Creatinine, Troponin, or PSA).
+3. **Specialist**: Recommend ONE specific specialist based on the most abnormal marker.
+4. **Summary**: Concise explanation. Use "Your results show..." and avoid definitive medical terms.
 
 ### RESPONSE FORMAT (STRICT JSON ONLY):
 {{
   "valid_data": true,
-  "report_type": "e.g., Complete Blood Count, Metabolic Panel",
+  "report_type": "Exact type detected",
   "patient_info": {{
     "name": "Full Name",
-    "age": "Age with unit",
-    "sex": "M/F",
+    "age": "Age",
+    "sex": "M/F/Unknown",
     "date": "YYYY-MM-DD"
   }},
   "overall_risk": "Low" | "Moderate" | "High",
-  "summary": "A cohesive 2-3 sentence explanation of the findings.",
+  "summary": "2-3 sentences max.",
   "tests": [
     {{
       "name": "Exact Test Name",
       "value": "Numeric Value",
       "unit": "Unit",
-      "ref_range": "Range",
-      "status": "Normal" | "Low" | "High" | "Borderline"
+      "ref_range": "Reference Range",
+      "status": "Level"
     }}
   ],
-  "lifestyle": ["Specific actionable tip 1", "Specific actionable tip 2", "Specific actionable tip 3"],
-  "specialist": "Most appropriate single medical specialty",
-  "urgency": "routine" | "follow-up" | "urgent",
-  "disclaimer": "Educational purposes only. Consult a physician."
+  "lifestyle": ["Tip 1", "Tip 2", "Tip 3"],
+  "specialist": "Specialist Name",
+  "urgency": "routine" | "follow-up" | "urgent"
 }}
+
+REPORT TEXT:
+{text_content}
+
+JSON Response:
+"""
 
 If the text does not look like a medical lab report or is completely unreadable, return: {{"valid_data": false}}
 

@@ -1,8 +1,3 @@
-"""
-Demo/Fallback Data for Lab-Lens
-Pre-configured medical report analysis results for reliable demo experience
-"""
-
 import random
 from datetime import datetime
 
@@ -109,7 +104,7 @@ THYROID_REPORT = {
     "valid_data": True,
     "report_type": "Thyroid Function Test",
     "patient_info": {"name": "Thyroid Check", "age": "38", "sex": "F", "date": None},
-    "summary": "Your thyroid panel shows elevated TSH with low T4, which may indicate hypothyroidism (underactive thyroid). Common symptoms include fatigue, weight gain, and feeling cold. This condition is very manageable with proper treatment.",
+    "summary": "Your thyroid panel shows markers suggesting an underactive thyroid profile. These findings are common and typically manageable through lifestyle changes and clinical guidance.",
     "tests": [
         {"name": "TSH", "value": "8.5", "unit": "µIU/mL", "ref_range": "0.4-4.0", "status": "High"},
         {"name": "Free T4", "value": "0.6", "unit": "ng/dL", "ref_range": "0.8-1.8", "status": "Low"},
@@ -192,7 +187,7 @@ ABS_REPORT = {
     "valid_data": True,
     "report_type": "Hematology & Basic Screening",
     "patient_info": {"name": "Demo Patient", "age": "45", "sex": "M", "date": None},
-    "summary": "The hematology report shows significant anemia with low hemoglobin (8.0 g/dL), low red blood cell count (3.32 million/cu mm), and low packed cell volume (26.3%). These findings may indicate iron deficiency anemia.",
+    "summary": "The hematology report shows low hemoglobin (8.0 g/dL) and red blood cell indices. These findings typically indicate reduced oxygen-carrying capacity and warrant clinical follow-up.",
     "tests": [
         {"name": "Haemoglobin", "value": "8.0", "unit": "g/dL", "ref_range": "12-14", "status": "Low"},
         {"name": "RBC Count", "value": "3.32", "unit": "million/cu mm", "ref_range": "3.80-5.80", "status": "Low"},
@@ -218,8 +213,8 @@ ABS_REPORT = {
 
 DIABETES_REPORT = {
     "valid_data": True,
-    "report_type": "Diabetes Panel",
-    "summary": "Blood glucose levels are elevated indicating prediabetes or early Type 2 diabetes. Your HbA1c of 6.8% shows average blood sugar has been high.",
+    "report_type": "Metabolic Screening",
+    "summary": "Blood glucose markers are observed to be above the standard clinical reference range. This suggests a shift in metabolic balance that warrants professional medical review.",
     "tests": [
         {"name": "Fasting Blood Sugar", "value": "126", "unit": "mg/dL", "ref_range": "70-100", "status": "High"},
         {"name": "HbA1c", "value": "6.8", "unit": "%", "ref_range": "<5.7", "status": "High"}
@@ -513,8 +508,8 @@ Consult your doctor for personalized medical advice."""
         reply = """A healthy diet is one of the most powerful tools for improving lab results!
 
 General guidelines:
-🥗 **Eat More:** Leafy greens, whole grains, lean proteins, healthy fats.
-🚫 **Eat Less:** Added sugars, processed foods, trans fats, excess sodium.
+Eat More: Leafy greens, whole grains, lean proteins, healthy fats.
+Eat Less: Added sugars, processed foods, trans fats, excess sodium.
 
 Consult your doctor for personalized medical advice."""
         suggestions = ["What foods improve hemoglobin?", "Best foods for heart health?", "Should I take supplements?"]

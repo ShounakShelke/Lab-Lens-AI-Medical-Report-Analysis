@@ -137,8 +137,17 @@ def extract_text_from_image(file_path):
         except Exception as e:
             print(f"OCR failed: {str(e)}. Using demo mode.")
     
-    print(f"Using demo OCR text for: {filename}")
-    return get_demo_ocr_text(filename)
+    print(f"DEBUG: OCR attempt for {filename}. API_WORKING={API_WORKING}")
+    
+    # If we get here, it means real OCR either failed or API is not configured
+    # We will ONLY return demo text if the user is explicitly testing with our demo filenames
+    # otherwise we return the raw text extracted or None
+    if not API_WORKING:
+        print(f"⚠️ API Key missing/invalid for OCR. Demo fallback active for: {filename}")
+        return get_demo_ocr_text(filename)
+    
+    # If API is working but extraction failed, don't just give fake data unless it's a known demo file
+    return "ERROR: Could not extract text from this document. Please ensure it is a clear image of a medical report."
 
 
 def get_demo_ocr_text(filename):

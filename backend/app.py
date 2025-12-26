@@ -127,24 +127,25 @@ def analyze():
 
     try:
         text = extract_text_from_image(filepath)
-        fname_lower = filename.lower()
         
-        # Check if we should use demo data based on filename
-        is_demo = False
-        demo_triggers = ["high", "low", "moderate", "abs", "reports-", "normal", "healthy"]
-        if any(trigger in fname_lower for trigger in demo_triggers):
-            print(f"DEMO MODE: Triggered by filename '{filename}'")
-            raw_analysis = analyze_lab_report(text, filename=filename) # This will handle filename patterns internally
-            is_demo = True
-        else:
-            print(f"Attempting AI analysis for: {filename}")
-            raw_analysis = analyze_lab_report(text, filename=filename)
+        # We no longer force demo mode based on filenames to avoid confusion with real reports
+        # Only analyze with AI
+        print(f"Running Lab-Lens AI Intelligence for: {filename}")
+        raw_analysis = analyze_lab_report(text, filename=filename)
 
-        # Fallback if analysis is empty
+        # Safety Fallback: Do not show a scary demo report if real analysis fails.
         if not raw_analysis or not raw_analysis.get('tests'):
-            print("Analysis failed or empty, using fallback demo data")
-            from demo_data import get_demo_report
-            raw_analysis = get_demo_report(risk_level="moderate")
+            print("⚠️ Analysis failed. Using neutral safety fallback.")
+            raw_analysis = {
+                "valid_data": True,
+                "report_type": "Report Analysis Unavailable",
+                "summary": "We were able to process your file, but our AI couldn't generate a confident clinical summary for this specific format. Please review the raw values with a healthcare professional.",
+                "tests": [],
+                "overall_risk": "Low",
+                "specialist": "General Physician",
+                "urgency": "routine",
+                "lifestyle": ["Ask your doctor to help interpret these results.", "Maintain a regular health check-up schedule."]
+            }
 
         # Standard Processing
         tests = raw_analysis.get('tests', [])

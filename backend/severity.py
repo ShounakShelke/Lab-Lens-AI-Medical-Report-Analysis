@@ -144,10 +144,19 @@ MASTER_REFERENCE_DICTIONARY = {
 }
 
 def clean_value(val_str):
-    """Extracts numeric value from string."""
+    """Extracts numeric value from string, handling 'lakhs' and other notations."""
     try:
-        match = re.search(r"(\d+(\.\d+)?)", str(val_str))
-        return float(match.group(1)) if match else None
+        val_str = str(val_str).lower().replace(",", "")
+        # Handle 'lakh' (common in Indian reports: 2.48 lakhs = 248,000)
+        multiplier = 1.0
+        if "lakh" in val_str:
+            multiplier = 100000.0
+            val_str = val_str.replace("lakh", "").replace("s", "").strip()
+        
+        match = re.search(r"(\d+(\.\d+)?)", val_str)
+        if match:
+            return float(match.group(1)) * multiplier
+        return None
     except:
         return None
 
@@ -156,9 +165,8 @@ def get_status(test_name, val, sex="M"):
     Compares a test value against the master dictionary.
     Returns: status, is_abnormal
     """
-    name_key = test_name.lower()
+    name_key = test_name.lower().replace("(f)", "fasting").replace("(pp)", "random")
     
-
     ref = None
     for key in MASTER_REFERENCE_DICTIONARY:
         if key in name_key:
@@ -167,7 +175,6 @@ def get_status(test_name, val, sex="M"):
             
     if not ref:
         return "Not Classified", False
-
 
     if isinstance(ref, dict):
         ranges = ref.get(sex, [0, 1000])
@@ -179,11 +186,20 @@ def get_status(test_name, val, sex="M"):
         return "Invalid Data", False
 
     low, high = ranges
-    if num_val < low: return "Low", True
-    if num_val > high: return "High", True
     
+    # --- AUTO-NORMALIZATION OF MAGNITUDE ---
+    # Many labs use /µL (e.g. 9600) while ref uses 10^9/L (9.6)
+    # If the value is > 100x the high range, we assume it's in a smaller unit scale
+    if num_val > high * 100:
+        normalized_val = num_val / 1000.0
+    else:
+        normalized_val = num_val
 
-    if num_val <= low * 1.1 or num_val >= high * 0.9:
+    if normalized_val < low: return "Low", True
+    if normalized_val > high: return "High", True
+    
+    # Borderline is 10% near the edges
+    if normalized_val <= low * 1.1 or normalized_val >= high * 0.9:
         return "Borderline", True
         
     return "Normal", False
