@@ -33,6 +33,7 @@ const LabChat = () => {
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const { user } = useAuth();
@@ -53,26 +54,36 @@ const LabChat = () => {
         setMessages([{
             id: 'init',
             type: 'assistant',
-            content: `I've analyzed your report. You can ask me about your ${analysis.riskSummary?.overallRisk || ''} risk factors or specific test results.`,
+            content: `I've analyzed your report. You can ask me about your ${analysis.overallRisk || analysis.riskSummary?.overallRisk || ''} risk factors or specific test results.`,
             timestamp: new Date()
         }]);
+
+        // Set initial suggestions from backend data if available
+        if (analysis.suggested_questions) {
+            setSuggestions(analysis.suggested_questions);
+        } else {
+            setSuggestions(["What do my results mean?", "How can I improve my health?", "Should I be worried?"]);
+        }
     }
   }, [analysis]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim()) return;
+  const handleSendMessage = async (e?: React.FormEvent, suggestionText?: string) => {
+    if (e) e.preventDefault();
+    
+    const textToSend = suggestionText || message;
+    if (!textToSend.trim()) return;
 
     const userMsg: Message = {
         id: Date.now().toString(),
         type: 'user',
-        content: message,
+        content: textToSend,
         timestamp: new Date()
     };
     
     setMessages(prev => [...prev, userMsg]);
     setMessage("");
     setIsTyping(true);
+    setSuggestions([]); // Clear suggestions while typing
 
     try {
       const response = await chatAPI.sendMessage(userMsg.content, reportId);
@@ -84,6 +95,11 @@ const LabChat = () => {
           timestamp: new Date()
       };
       setMessages(prev => [...prev, botMsg]);
+      
+      // Update suggestions if provided by backend
+      if (response.data.suggestions) {
+          setSuggestions(response.data.suggestions);
+      }
     } catch (error) {
       console.error("Chat Error:", error);
       toast.error("Failed to get response");
@@ -173,6 +189,7 @@ const LabChat = () => {
             )}
           </header>
 
+
           <ScrollArea className="flex-1 p-6">
             <div className="max-w-3xl mx-auto space-y-6">
               {messages.map((msg) => (
@@ -186,7 +203,7 @@ const LabChat = () => {
                   <div className={`max-w-[80%] rounded-2xl p-4 ${
                     msg.type === 'user' 
                       ? 'bg-primary text-primary-foreground rounded-tr-none' 
-                      : 'bg-muted rounded-tl-none'
+                      : 'bg-muted rounded-tl-none border border-slate-200'
                   }`}>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                   </div>
@@ -217,7 +234,24 @@ const LabChat = () => {
             </div>
           </ScrollArea>
 
-          <div className="p-4 border-t bg-background">
+          <div className="p-4 border-t bg-background space-y-4">
+            {suggestions.length > 0 && (
+                <div className="max-w-3xl mx-auto flex flex-wrap gap-2 animate-in fade-in slide-in-from-bottom-1">
+                    {suggestions.map((suggestion, idx) => (
+                        <Button 
+                            key={idx} 
+                            variant="outline" 
+                            size="sm" 
+                            className="text-xs h-8 rounded-full bg-slate-50 border-slate-200 hover:bg-slate-100 transition-colors"
+                            onClick={() => handleSendMessage(undefined, suggestion)}
+                            disabled={isTyping}
+                        >
+                            {suggestion}
+                        </Button>
+                    ))}
+                </div>
+            )}
+
             <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex gap-3">
               <Input
                 value={message}
@@ -231,7 +265,7 @@ const LabChat = () => {
               </Button>
             </form>
             <p className="text-xs text-center text-muted-foreground mt-2">
-                AI can make mistakes. Please consult a doctor for medical advice.
+                AI Assistant can explain results but cannot provide clinical diagnosis. Consult your doctor.
             </p>
           </div>
         </main>

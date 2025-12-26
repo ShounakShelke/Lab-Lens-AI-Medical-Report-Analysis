@@ -5,4 +5,5 @@ Pillow
 Werkzeug
 python-dotenv
 gunicorn
-pymongo
+pymongo[srv]
+dnspython

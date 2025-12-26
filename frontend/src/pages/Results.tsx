@@ -109,24 +109,34 @@ export default function Results() {
   const testResults = data.tests || [];
   const lifestyleGuidance = data.lifestyle || [];
   
+  const handleDownload = () => {
+    window.print();
+  };
+
   return (
     <Layout>
-      <div className="container py-8 md:py-12">
+      <div className="container py-8 md:py-12 print:p-0">
         
+        {/* Print-only Header */}
+        <div className="hidden print:block mb-8 text-center border-b pb-6">
+            <h1 className="text-3xl font-bold text-primary">Lab-Lens Analysis Report</h1>
+            <p className="text-sm text-muted-foreground mt-2">Generated on {new Date().toLocaleDateString()} • Secure AI Laboratory Interpretation</p>
+        </div>
+
         {overallRisk !== 'Low' && (
-            <div className={`mb-8 flex items-center gap-4 rounded-xl border-l-4 p-6 shadow-sm ${getBannerStyles(riskSummary.severityBannerColor)}`}>
+            <div className={`mb-8 flex items-center gap-4 rounded-xl border-l-4 p-6 shadow-sm ${getBannerStyles(riskSummary.severityBannerColor)} print:border`}>
                 <AlertCircle className="h-8 w-8 shrink-0" />
                 <div>
                     <h2 className="text-xl font-bold uppercase tracking-tight">{riskSummary.bannerMessage || "ATTENTION NEEDED"}</h2>
                     <p className="mt-1 font-medium opacity-90">
-                        Based on your results, we detected patterns associated with {overallRisk} risk.
+                        Based on your results, we detected patterns associated with {overallRisk}.
                         Please see the specialist recommendation below.
                     </p>
                 </div>
             </div>
         )}
 
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between print:hidden">
           <div>
             <h1 className="text-2xl font-bold md:text-3xl">Your Results</h1>
             <p className="mt-1 text-muted-foreground">
@@ -140,9 +150,9 @@ export default function Results() {
                     Ask Assistant
                 </Link>
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={handleDownload}>
               <Download className="mr-2 h-4 w-4" />
-              Download PDF
+              Download / Print
             </Button>
           </div>
         </div>

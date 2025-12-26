@@ -15,8 +15,8 @@ export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('auth_token');
+    const storedUser = sessionStorage.getItem('user');
+    const token = sessionStorage.getItem('auth_token');
     
     if (storedUser && token) {
       try {
@@ -24,8 +24,8 @@ export function useAuth() {
         setUser(parsedUser);
         setIsAuthenticated(true);
       } catch {
-        localStorage.removeItem('user');
-        localStorage.removeItem('auth_token');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('auth_token');
       }
     }
     setIsLoading(false);
@@ -41,8 +41,8 @@ export function useAuth() {
       const response = await authAPI.googleLogin(credential);
       const { user: userData, token } = response.data;
 
-      localStorage.setItem('auth_token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      sessionStorage.setItem('auth_token', token);
+      sessionStorage.setItem('user', JSON.stringify(userData));
 
       setUser(userData);
       setIsAuthenticated(true);
@@ -60,8 +60,8 @@ export function useAuth() {
     } catch {
   }
     
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('auth_token');
+    sessionStorage.removeItem('user');
     setUser(null);
     setIsAuthenticated(false);
   }, []);
@@ -74,8 +74,8 @@ export function useAuth() {
       role: isAdmin ? 'admin' : 'user',
     };
     
-    localStorage.setItem('auth_token', 'demo-token');
-    localStorage.setItem('user', JSON.stringify(demoUser));
+    sessionStorage.setItem('auth_token', 'demo-token');
+    sessionStorage.setItem('user', JSON.stringify(demoUser));
     
     setUser(demoUser);
     setIsAuthenticated(true);

@@ -28,8 +28,18 @@ else:
 text_model = None
 if API_WORKING:
     try:
-        text_model = genai.GenerativeModel('gemini-1.5-flash')
-        print(f"Text model initialized: gemini-1.5-flash")
+        # Using a lower temperature for medical analysis to ensure consistency and reduce hallucinations
+        generation_config = {
+            "temperature": 0.1,
+            "top_p": 0.95,
+            "top_k": 40,
+            "max_output_tokens": 2048,
+        }
+        text_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash',
+            generation_config=generation_config
+        )
+        print(f"Text model initialized: gemini-1.5-flash (Low Temp)")
     except Exception as e:
         print(f"Model init failed: {e}. Using demo mode.")
         API_WORKING = False
@@ -41,65 +51,84 @@ def analyze_lab_report(text_content, filename=None):
     Returns JSON with patient info, tests, and recommendations.
     Falls back to demo data if API fails.
     """
-    print(f"analyze_lab_report called with {len(text_content)} chars")
-    
+    print(f"analyze_lab_report called with {len(text_content)} characters")
 
     if API_WORKING and text_model:
         try:
             prompt = f"""
-You are a medical lab report analyzer. Analyze this report and return ONLY valid JSON in this exact format:
+You are an expert Medical Laboratory Scientist. Analyze the following extracted text from a medical lab report. 
+Your goal is to provide a structured, accurate, and consistent analysis.
 
+### INSTRUCTIONS:
+1. Extract all tests, values, units, and reference ranges.
+2. For each test, determine its status: "Normal", "Low", "High", or "Borderline".
+3. Calculate an Overall Risk Level based on the abnormalities:
+   - "Low Risk": All or almost all values are normal.
+   - "Moderate Risk": Multiple minor deviations (Borderline/Mild Low/High) or 1-2 significant deviations.
+   - "High Risk": Critical markers (e.g., Creatinine, Troponin, CRP) are high, or many values are severely abnormal.
+4. Provide a "summary" that is consistent with the Overall Risk. If you mark it as "High Risk", the summary must reflect that.
+5. Identify the "specialist" most relevant to the abnormalities (e.g., Cardiologist for heart, Endocrinologist for sugar/thyroid, Nephrologist for kidney, Hematologist for blood).
+6. Ensure the "urgency" matches the Risk Level: "routine" for Low, "follow-up" for Moderate, "urgent" for High.
+
+### RESPONSE FORMAT (STRICT JSON ONLY):
 {{
   "valid_data": true,
-  "report_type": "Blood Test" or "Metabolic Panel" etc,
+  "report_type": "e.g., Complete Blood Count, Metabolic Panel",
   "patient_info": {{
-    "name": "found name or null",
-    "age": "found age or null",
-    "sex": "M/F or null",
-    "date": "YYYY-MM-DD or null"
+    "name": "Full Name",
+    "age": "Age with unit",
+    "sex": "M/F",
+    "date": "YYYY-MM-DD"
   }},
-  "summary": "Brief summary in simple language",
+  "overall_risk": "Low" | "Moderate" | "High",
+  "summary": "A cohesive 2-3 sentence explanation of the findings.",
   "tests": [
     {{
-      "name": "Test Name",
-      "value": "12.5",
-      "unit": "g/dL",
-      "ref_range": "13-17",
-      "status": "Low"
+      "name": "Exact Test Name",
+      "value": "Numeric Value",
+      "unit": "Unit",
+      "ref_range": "Range",
+      "status": "Normal" | "Low" | "High" | "Borderline"
     }}
   ],
-  "lifestyle": ["Tip 1", "Tip 2", "Tip 3"],
-  "specialist": "Hematologist" or "General Physician",
-  "urgency": "routine",
-  "disclaimer": "This is educational only. Consult a doctor."
+  "lifestyle": ["Specific actionable tip 1", "Specific actionable tip 2", "Specific actionable tip 3"],
+  "specialist": "Most appropriate single medical specialty",
+  "urgency": "routine" | "follow-up" | "urgent",
+  "disclaimer": "Educational purposes only. Consult a physician."
 }}
 
-If not a medical report, return: {{"valid_data": false}}
+If the text does not look like a medical lab report or is completely unreadable, return: {{"valid_data": false}}
 
-Report Text:
+REPORT TEXT:
 {text_content}
 
-Return JSON only:
+JSON Response:
 """
             
             response = text_model.generate_content(prompt)
             response_text = response.text
             
+            # Extract JSON from response if it's wrapped in markers
+            if "```json" in response_text:
+                response_text = response_text.split("```json")[1].split("```")[0].strip()
+            elif "```" in response_text:
+                response_text = response_text.split("```")[1].split("```")[0].strip()
+
             try:
                 result = json.loads(response_text)
                 if result.get('valid_data'):
-                    print(f"AI Analysis complete: valid_data=True")
+                    print(f"AI Analysis complete: valid_data=True, risk={result.get('overall_risk')}")
                     return result
             except json.JSONDecodeError:
-
+                # Fallback extraction logic
                 if '{' in response_text and '}' in response_text:
                     start = response_text.index('{')
                     end = response_text.rindex('}') + 1
                     try:
                         result = json.loads(response_text[start:end])
                         if result.get('valid_data'):
-                            print(f"AI Analysis complete (extracted): valid_data=True")
-                            return result
+                             print(f"AI Analysis complete (extracted): risk={result.get('overall_risk')}")
+                             return result
                     except:
                         pass
             
@@ -108,10 +137,19 @@ Return JSON only:
         except Exception as e:
             print(f"AI Analysis error: {e}. Using demo data.")
     
-
+    # Fallback to demo data
     print(f"Using demo data for analysis (filename: {filename})")
-    demo_report = get_demo_report(filename=filename)
-    return demo_report
+    from demo_data import get_demo_report
+    
+    # Improved filename matching for demo
+    risk_lvl = None
+    if filename:
+        fn = filename.lower()
+        if 'high' in fn or 'critical' in fn: risk_lvl = 'high'
+        elif 'low' in fn or 'normal' in fn: risk_lvl = 'low'
+        elif 'moderate' in fn or 'medium' in fn: risk_lvl = 'moderate'
+        
+    return get_demo_report(filename=filename, risk_level=risk_lvl)
 
 
 def chat_with_context(message, report_context):

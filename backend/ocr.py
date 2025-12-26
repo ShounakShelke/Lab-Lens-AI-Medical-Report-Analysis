@@ -27,8 +27,17 @@ else:
 vision_model = None
 if API_WORKING:
     try:
-        vision_model = genai.GenerativeModel('gemini-1.5-flash')
-        print(f"Vision model initialized: gemini-1.5-flash")
+        # Low temperature for precise OCR extraction
+        generation_config = {
+            "temperature": 0.1,
+            "top_p": 0.95,
+            "top_k": 40,
+        }
+        vision_model = genai.GenerativeModel(
+            model_name='gemini-1.5-flash',
+            generation_config=generation_config
+        )
+        print(f"Vision model initialized: gemini-1.5-flash (Low Temp)")
     except Exception as e:
         print(f"Vision model init failed: {e}. Using demo mode.")
         API_WORKING = False
@@ -84,24 +93,39 @@ Note: This is a laboratory report for educational demonstration purposes.
 
 def extract_text_from_image(file_path):
     """
-    Extract text from medical report images using Gemini Vision.
+    Extract text from medical report images or PDFs using Gemini.
     Falls back to demo text if API unavailable.
     """
     filename = os.path.basename(file_path).lower()
     
     if API_WORKING and vision_model:
         try:
-
-            image = Image.open(file_path)
-            
-            prompt = (
-                "Extract ALL text from this medical laboratory report. "
-                "Include test names, values, units, reference ranges, patient info, and dates. "
-                "Transcribe exactly as shown, preserving the structure."
-            )
-            
-
-            response = vision_model.generate_content([prompt, image])
+            # Handle PDF vs Image
+            if filename.endswith('.pdf'):
+                print(f"Processing PDF for OCR: {filename}")
+                # For PDFs, we can upload the file to Gemini or use the path if the SDK supports it
+                # In many environments, sending the file object or bytes is better
+                with open(file_path, "rb") as f:
+                    file_data = f.read()
+                
+                # Gemini 1.5 Flash can handle PDF blobs directly
+                content = [
+                    {
+                        "mime_type": "application/pdf",
+                        "data": file_data
+                    },
+                    "Extract ALL text from this medical laboratory report. Include test names, values, units, reference ranges, patient info, and dates. Transcribe exactly as shown, preserving the structure."
+                ]
+                response = vision_model.generate_content(content)
+            else:
+                # Standard Image handling
+                image = Image.open(file_path)
+                prompt = (
+                    "Extract ALL text from this medical laboratory report. "
+                    "Include test names, values, units, reference ranges, patient info, and dates. "
+                    "Transcribe exactly as shown, preserving the structure."
+                )
+                response = vision_model.generate_content([prompt, image])
             
             text = response.text
             if text and len(text) > 50:
@@ -113,7 +137,6 @@ def extract_text_from_image(file_path):
         except Exception as e:
             print(f"OCR failed: {str(e)}. Using demo mode.")
     
-
     print(f"Using demo OCR text for: {filename}")
     return get_demo_ocr_text(filename)
 
