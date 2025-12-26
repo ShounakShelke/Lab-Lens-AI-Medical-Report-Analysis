@@ -20,19 +20,19 @@ AI-powered medical lab report analyzer that provides easy-to-understand insights
 ```
 Cortex-LMH-main/
 ├── backend/
-│   ├── app.py          # Main Flask application
-│   ├── gemini.py       # Gemini AI integration
-│   ├── ocr.py          # OCR text extraction
-│   ├── severity.py     # Risk calculation logic
+│   ├── app.py
+│   ├── gemini.py
+│   ├── ocr.py
+│   ├── severity.py
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
-│   │   ├── pages/      # React pages
-│   │   ├── components/ # UI components
-│   │   └── services/   # API services
+│   │   ├── pages/
+│   │   ├── components/
+│   │   └── services/
 │   └── package.json
-├── Procfile            # Render deployment
-├── render.yaml         # Render blueprint
+├── Procfile
+├── render.yaml
 └── README.md
 ```
 
@@ -44,3 +44,4 @@ Cortex-LMH-main/
 ### Built with Love by Team Cortex LMH 🧡
 
 ## Team Cortex LMH - Shounak Shelke | Shravani Parte | Sahil Kesarkar
+
