@@ -8,7 +8,8 @@ import {
   Brain,
   Stethoscope,
   Lock,
-  FileWarning
+  FileWarning,
+  User
 } from 'lucide-react';
 
 const sections = [
@@ -204,6 +205,19 @@ export default function Disclaimer() {
             </ul>
           </CardContent>
         </Card>
+
+        <div className="mx-auto mt-12 max-w-3xl rounded-xl border border-primary/20 bg-primary/5 p-8 text-center animate-fade-in">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+            <User className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <h2 className="text-xl font-bold">About the Developer</h2>
+          <p className="mt-2 text-muted-foreground text-center">
+            Lab-Lens is a flagship project of <span className="font-semibold text-primary">Cortex LMH</span>. 
+            <br />
+            <span className="font-medium">This is a Part of Project Cortex LMH developed by Shounak Shelke</span>. 
+            Designed to bridge the gap between complex medical reports and patient understanding using ethical AI.
+          </p>
+        </div>
 
         <div className="mx-auto mt-12 max-w-3xl rounded-xl border border-status-alert/30 bg-status-alert/5 p-6">
           <div className="flex items-start gap-4">

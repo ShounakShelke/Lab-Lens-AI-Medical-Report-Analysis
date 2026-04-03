@@ -38,7 +38,7 @@ export function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-background">
-      {}
+      {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
@@ -46,7 +46,7 @@ export function AdminLayout() {
         />
       )}
 
-      {}
+      {/* Sidebar sidebar */}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border transition-transform lg:fixed lg:translate-x-0",
@@ -54,7 +54,7 @@ export function AdminLayout() {
         )}
       >
         <div className="flex h-full flex-col">
-          {}
+          {/* Logo Section */}
           <div className="flex items-center gap-3 px-6 py-4 border-b border-border">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
               <Activity className="w-5 h-5 text-primary-foreground" />
@@ -64,10 +64,11 @@ export function AdminLayout() {
               <p className="text-xs text-muted-foreground">
                 Safety & Governance
               </p>
+              <p className="text-[10px] font-medium text-primary mt-1 leading-tight">This is a Part of Project Cortex LMH developed by Shounak Shelke</p>
             </div>
           </div>
 
-          {}
+          {/* User Info Section */}
           <div className="px-6 py-4 border-b border-border">
             <p className="text-sm font-medium">{user?.name}</p>
             <p className="text-xs text-muted-foreground">{user?.email}</p>
@@ -76,7 +77,7 @@ export function AdminLayout() {
             </span>
           </div>
 
-          {}
+          {/* Navigation Links */}
           <nav className="flex-1 px-4 py-6 space-y-2">
             {navigation.map((item) => {
               const isActive = location.pathname === item.href;
@@ -99,7 +100,7 @@ export function AdminLayout() {
             })}
           </nav>
 
-          {}
+          {/* Logout Section */}
           <div className="p-4 border-t border-border">
             <Button
               variant="ghost"
@@ -113,11 +114,11 @@ export function AdminLayout() {
         </div>
       </aside>
 
-      {}
+      {/* Main Content */}
       <div className="lg:pl-64">
-        {}
-        <header className="sticky top-0 z-30 bg-background/80 backdrop-blur border-b border-border lg:hidden">
-          <div className="flex items-center justify-between px-4 py-3">
+        {/* Mobile Header */}
+        <header className="fixed top-0 right-0 left-0 z-30 bg-background/80 backdrop-blur border-b border-border lg:hidden">
+          <div className="flex items-center justify-between px-4 py-3 h-16">
             <Button
               variant="ghost"
               size="sm"
@@ -137,8 +138,15 @@ export function AdminLayout() {
           </div>
         </header>
 
-        {}
-        <main className="p-6">
+        {/* Desktop Header - Project Attribution */}
+        <header className="hidden lg:flex items-center justify-end px-6 h-14 border-b border-border">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
+            This is a Part of Project Cortex LMH developed by Shounak Shelke
+          </p>
+        </header>
+
+        {/* Main Content Area */}
+        <main className="p-6 pt-20 lg:pt-6">
           <Outlet />
         </main>
       </div>

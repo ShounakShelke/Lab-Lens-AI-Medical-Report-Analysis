@@ -83,8 +83,11 @@ export default function History() {
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold md:text-3xl">Report History</h1>
-            <p className="mt-1 text-muted-foreground">
+            <p className="mt-1 text-muted-foreground flex items-center gap-2">
               View your previous lab report analyses
+              <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
+                This is a Part of Project Cortex LMH developed by Shounak Shelke
+              </span>
             </p>
           </div>
           <Button asChild>

@@ -41,8 +41,11 @@ export default function AdminDashboard() {
       <div className="container py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold md:text-3xl">Admin Dashboard</h1>
-          <p className="mt-1 text-muted-foreground">
+          <p className="mt-1 text-muted-foreground flex items-center gap-2">
             Monitor system health and AI performance
+            <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary uppercase">
+              This is a Part of Project Cortex LMH developed by Shounak Shelke
+            </span>
           </p>
         </div>
 

@@ -57,8 +57,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Lab-Lens. Built with ethical AI principles.
+        <div className="mt-6 text-center text-xs text-muted-foreground flex flex-col items-center gap-2">
+          <span>© {new Date().getFullYear()} Lab-Lens. Built with ethical AI principles.</span>
+          <span className="font-medium text-primary">This is a Part of Project Cortex LMH developed by Shounak Shelke</span>
         </div>
       </div>
     </footer>

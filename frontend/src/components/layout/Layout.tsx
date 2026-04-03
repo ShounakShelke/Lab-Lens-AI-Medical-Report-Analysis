@@ -13,7 +13,7 @@ export function Layout({ children, hideFooter = false, admin = false }: LayoutPr
   return (
     <div className="flex min-h-screen flex-col">
       {admin ? <AdminNavbar /> : <Navbar />}
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pt-16">{children}</main>
       {!hideFooter && <Footer />}
     </div>
   );
