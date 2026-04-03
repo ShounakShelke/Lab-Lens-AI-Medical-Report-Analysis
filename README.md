@@ -6,9 +6,9 @@ Lab-Lens is an AI-powered medical report analysis tool built to make complex lab
 [![Deployed Link](https://img.shields.io/badge/Deployed%20App-View%20Live-blue?style=for-the-badge)](https://cortex-lmdh-lab-lens.vercel.app/)
 [![GitHub Link](https://img.shields.io/badge/GitHub-Repo-black?style=for-the-badge&logo=github)](https://github.com/ShounakShelke/Lab-Lens-AI-Medical-Report-Analysis)
 
-## Standout Project: Lab-Lens
+## Lab-Lens
 
-One of my standout projects is **Lab-Lens**, an AI-powered medical report analysis tool that I built to make complex lab reports easier to understand for everyday users.
+One of my best projects is **Lab-Lens**, an AI-powered medical report analysis tool that I built to make complex lab reports easier to understand for everyday users.
 
 ### Problem
 Most patients struggle to interpret medical reports filled with technical jargon and numerical values. This leads to anxiety, confusion, and sometimes even medical mismanagement before they can consult a specialist.
