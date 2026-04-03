@@ -76,20 +76,7 @@ export default function Disclaimer() {
           </p>
         </div>
 
-        <div className="mx-auto mb-12 max-w-3xl rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center animate-fade-in">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
-            <User className="h-6 w-6 text-primary-foreground" />
-          </div>
-          <h2 className="text-xl font-bold">About the Developer</h2>
-          <p className="mt-2 text-muted-foreground text-center">
-            Lab-Lens is a flagship project of <span className="font-semibold text-primary">Cortex LMH</span>. 
-            <br />
-            <span className="font-medium">This is a Part of Project Cortex LMH developed by Shounak Shelke</span>. 
-            Designed to bridge the gap between complex medical reports and patient understanding using ethical AI.
-          </p>
-        </div>
-
-        <Card className="mx-auto mb-12 max-w-4xl border-status-borderline/30 bg-status-borderline/5">
+        <Card className="mx-auto mb-12 max-w-3xl border-status-borderline/30 bg-status-borderline/5">
           <CardContent className="p-6">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-status-borderline/20">
@@ -134,44 +121,32 @@ export default function Disclaimer() {
           ))}
         </div>
 
-        <Card className="mx-auto mb-12 max-w-3xl overflow-hidden">
-          <CardHeader className="bg-primary/5 border-b border-primary/10">
+        <Card className="mx-auto mb-12 max-w-3xl">
+          <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                 <Stethoscope className="h-5 w-5 text-primary" />
               </div>
               Why Doctor Consultation Matters
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6">
-            <p className="text-muted-foreground leading-relaxed">
+          <CardContent className="prose prose-sm max-w-none text-muted-foreground">
+            <p>
               While Lab-Lens can help you understand what your test values mean in general terms, 
               a healthcare professional considers many factors that our AI cannot:
             </p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {[
-                { label: 'Medical History', desc: 'Family background and past conditions' },
-                { label: 'Current Symptoms', desc: 'How you are feeling right now' },
-                { label: 'Medications', desc: 'Supplements and current prescriptions' },
-                { label: 'Health Trends', desc: 'Previous results and changes over time' },
-                { label: 'Physical Exam', desc: 'Clinical findings from a direct visit' },
-                { label: 'Health Goals', desc: 'Your individual concerns and objectives' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-3 rounded-lg border bg-secondary/20 p-3">
-                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                    <p className="text-xs text-muted-foreground">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 rounded-lg bg-status-borderline/10 p-4 border border-status-borderline/20">
-              <p className="text-sm text-center font-medium text-status-borderline">
-                These factors are essential for accurate interpretation and appropriate medical guidance. 
-                Lab results are just one piece of the health puzzle.
-              </p>
-            </div>
+            <ul className="mt-4 space-y-2">
+              <li>Your complete medical history and family background</li>
+              <li>Current symptoms and how you're feeling</li>
+              <li>Medications and supplements you're taking</li>
+              <li>Previous test results and trends over time</li>
+              <li>Physical examination findings</li>
+              <li>Your individual health goals and concerns</li>
+            </ul>
+            <p className="mt-4">
+              These factors are essential for accurate interpretation and appropriate medical guidance. 
+              Lab results are just one piece of the health puzzle.
+            </p>
           </CardContent>
         </Card>
 
@@ -185,7 +160,7 @@ export default function Disclaimer() {
           
           <div className="grid gap-4 sm:grid-cols-2">
             {aiLimitations.map((limitation) => (
-              <Card key={limitation.title} className="bg-card/50 backdrop-blur-sm">
+              <Card key={limitation.title}>
                 <CardContent className="p-4">
                   <h3 className="font-medium">{limitation.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -230,6 +205,19 @@ export default function Disclaimer() {
             </ul>
           </CardContent>
         </Card>
+
+        <div className="mx-auto mt-12 max-w-3xl rounded-xl border border-primary/20 bg-primary/5 p-8 text-center animate-fade-in">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
+            <User className="h-6 w-6 text-primary-foreground" />
+          </div>
+          <h2 className="text-xl font-bold">About the Developer</h2>
+          <p className="mt-2 text-muted-foreground text-center">
+            Lab-Lens is a flagship project of <span className="font-semibold text-primary">Cortex LMH</span>. 
+            <br />
+            <span className="font-medium">This is a Part of Project Cortex LMH developed by Shounak Shelke</span>. 
+            Designed to bridge the gap between complex medical reports and patient understanding using ethical AI.
+          </p>
+        </div>
 
         <div className="mx-auto mt-12 max-w-3xl rounded-xl border border-status-alert/30 bg-status-alert/5 p-6">
           <div className="flex items-start gap-4">
