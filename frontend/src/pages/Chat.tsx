@@ -118,7 +118,7 @@ const LabChat = () => {
     <Layout>
       <div className="flex h-[calc(100vh-4rem)] border-t bg-background">
         <aside 
-          className={`bg-slate-50 border-r border-border transition-all duration-300 relative ${
+          className={`bg-slate-50/50 dark:bg-slate-900/20 border-r border-border transition-all duration-300 relative ${
             sidebarCollapsed ? 'w-16' : 'w-72'
           }`}
         >
@@ -144,7 +144,7 @@ const LabChat = () => {
 
              <div className="flex-1">
                  {!sidebarCollapsed && (
-                     <div className="rounded-lg bg-white p-3 border shadow-sm mb-4">
+                     <div className="rounded-lg bg-card p-3 border shadow-sm mb-4">
                          <div className="flex items-center gap-2 mb-2">
                              <FileText className="h-4 w-4 text-primary" />
                              <span className="font-medium text-sm">Report Summary</span>
@@ -175,7 +175,7 @@ const LabChat = () => {
         </aside>
 
         <main className="flex-1 flex flex-col bg-background">
-          <header className="h-16 border-b flex items-center justify-between px-6 bg-white/50 backdrop-blur">
+          <header className="h-16 border-b flex items-center justify-between px-6 bg-background/50 backdrop-blur">
             <div className="flex items-center gap-3">
               <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Stethoscope className="h-4 w-4 text-primary" />
@@ -202,8 +202,8 @@ const LabChat = () => {
                   
                   <div className={`max-w-[80%] rounded-2xl p-4 ${
                     msg.type === 'user' 
-                      ? 'bg-primary text-primary-foreground rounded-tr-none' 
-                      : 'bg-muted rounded-tl-none border border-slate-200'
+                      ? 'bg-primary text-primary-foreground rounded-tr-none shadow-md shadow-primary/10' 
+                      : 'bg-muted/80 backdrop-blur-sm rounded-tl-none border border-border'
                   }`}>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                   </div>
@@ -242,7 +242,7 @@ const LabChat = () => {
                             key={idx} 
                             variant="outline" 
                             size="sm" 
-                            className="text-xs h-8 rounded-full bg-slate-50 border-slate-200 hover:bg-slate-100 transition-colors"
+                            className="text-xs h-8 rounded-full bg-secondary/50 border-border hover:bg-secondary transition-colors"
                             onClick={() => handleSendMessage(undefined, suggestion)}
                             disabled={isTyping}
                         >
